@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NailStudioPro - Solución de Gestión para Manicuristas</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            200: '#fbcfe8',
+                            300: '#f472b6',
+                            400: '#e879f9',
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                            800: '#9d174d',
+                            900: '#831843',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #faf5f8;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f472b6;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col selection:bg-brand-100 selection:text-brand-700">
+
+    <!-- ENCABEZADO SUPERIOR LÍMPIO -->
+    <header class="bg-white border-b border-pink-100 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="returnToLanding()">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-rose-400 flex items-center justify-center text-white shadow-md shadow-pink-200">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-slate-800 text-lg leading-none">NailStudio<span class="text-brand-600">Pro</span></h1>
+                    <p class="text-[11px] text-slate-400 font-medium">Gestión Inteligente para Manicuristas</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button id="headerBackHomeBtn" onclick="returnToLanding()" class="hidden text-xs font-bold text-brand-700 bg-pink-50 hover:bg-pink-100 px-3 py-1.5 rounded-xl border border-pink-200 transition-all flex items-center gap-1.5">
+                    <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Volver al Inicio
+                </button>
+
+                <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded-xl text-xs">
+                    <i data-lucide="globe" class="w-3.5 h-3.5 text-brand-500"></i>
+                    <select id="globalCurrencySelect" onchange="updateGlobalCurrency(this.value)" class="bg-transparent text-slate-700 font-bold outline-none cursor-pointer">
+                        <option value="USD">🇺🇸 USD ($)</option>
+                        <option value="COP">🇨🇴 COP ($)</option>
+                        <option value="MXN">🇲🇽 MXN ($)</option>
+                        <option value="ARS">🇦🇷 ARS ($)</option>
+                        <option value="CLP">🇨🇱 CLP ($)</option>
+                        <option value="PEN">🇵🇪 PEN (S/)</option>
+                        <option value="VED">🇻🇪 VED (Bs.)</option>
+                        <option value="GTQ">🇬🇹 GTQ (Q)</option>
+                        <option value="DOP">🇩🇴 DOP ($)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- VISTA 1: LANDING PAGE -->
+    <div id="landingView" class="flex-1 space-y-12 py-10 px-4 max-w-6xl mx-auto w-full">
+        <div class="text-center space-y-4 max-w-3xl mx-auto">
+            <span class="px-3 py-1 bg-pink-100 text-brand-700 text-xs font-extrabold rounded-full inline-block border border-pink-200">
+                ✨ SISTEMA ESPECIALIZADO EN UÑAS
+            </span>
+            <h2 class="text-3xl sm:text-5xl font-black text-slate-800 leading-tight">
+                Calcula tus costos reales y digitaliza tu mesa de trabajo
+            </h2>
+            <p class="text-slate-500 text-sm sm:text-base leading-relaxed">
+                Selecciona la versión que deseas probar hoy. Puedes usar nuestra versión gratuita sin vencimiento o activar tu Pase VIP ilimitado.
+            </p>
+        </div>
+
+        <!-- GUÍA PASO A PASO -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-pink-100 shadow-sm max-w-4xl mx-auto space-y-6">
+            <div class="text-center space-y-2">
+                <h3 class="text-xl font-bold text-slate-800 flex items-center justify-center gap-2">
+                    <i data-lucide="book-open" class="w-5 h-5 text-brand-600"></i> Guía Paso a Paso de Uso
+                </h3>
+                <p class="text-xs text-slate-500">Conoce cómo aprovechar al máximo tu sistema según la versión que elijas</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                <div class="bg-slate-50/80 rounded-2xl p-5 border border-slate-200 space-y-3">
+                    <div class="flex items-center gap-2 text-slate-700 font-bold text-xs uppercase tracking-wider">
+                        <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-700 text-[11px] flex items-center justify-center font-black">1</span>
+                        Guía Versión Gratuita
+                    </div>
+                    <ul class="space-y-2 text-xs text-slate-600">
+                        <li class="flex items-start gap-2">
+                            <span class="text-brand-600 font-bold">•</span>
+                            <span><strong>Registro Inicial:</strong> Completa tus datos en la ventana emergente al ingresar.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-brand-600 font-bold">•</span>
+                            <span><strong>Carga tus Insumos:</strong> Ve al Inventario de Insumos y añade manualmente tus productos y costos de compra.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-brand-600 font-bold">•</span>
+                            <span><strong>Calcula tus Servicios:</strong> Usa la Calculadora de Costos, crea nuevos servicios e integra los insumos para obtener el precio sugerido.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-pink-50/50 rounded-2xl p-5 border border-pink-200 space-y-3">
+                    <div class="flex items-center gap-2 text-brand-800 font-bold text-xs uppercase tracking-wider">
+                        <span class="w-6 h-6 rounded-full bg-brand-200 text-brand-800 text-[11px] flex items-center justify-center font-black">2</span>
+                        Guía Versión VIP
+                    </div>
+                    <ul class="space-y-2 text-xs text-slate-700">
+                        <li class="flex items-start gap-2">
+                            <span class="text-brand-600 font-bold">•</span>
+                            <span><strong>Pago y Verificación:</strong> Transfiere $10 USD por Binance o PayPal y envía tu comprobante por WhatsApp.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-brand-600 font-bold">•</span>
+                            <span><strong>Recibe tu Clave:</strong> Tras confirmar tu pago, recibirás tu clave personal para desbloquear la versión completa.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-brand-600 font-bold">•</span>
+                            <span><strong>Automatización Total:</strong> Selecciona cualquiera de los 7 Sistemas Preconfigurados y la calculadora cargará de inmediato la receta.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-brand-600 font-bold">•</span>
+                            <span><strong>Finanzas y Agenda:</strong> Controla tus ingresos/gastos en la Caja y envía recordatorios de citas en 1 clic por WhatsApp.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TARJETAS DE PLANES -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
+            <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between space-y-6 relative hover:border-pink-300 transition-all">
+                <div class="space-y-4">
+                    <div class="inline-block px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-bold">
+                        Básica ilimitada
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800">Versión Gratuita</h3>
+                    <p class="text-xs text-slate-500">Ideal si estás empezando y deseas calcular tus costos directos por insumo.</p>
+                    <div class="text-3xl font-black text-slate-800">
+                        GRATIS <span class="text-xs text-slate-400 font-normal">/ para siempre</span>
+                    </div>
+                    <ul class="space-y-2.5 text-xs text-slate-600 pt-4 border-t border-slate-100">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Calculadora por Costo Directo de Insumos</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Registro de Servicios Personalizados</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Inventario de Insumos (Manual desde Cero)</li>
+                        <li class="flex items-center gap-2 text-slate-400"><i data-lucide="x" class="w-4 h-4 text-rose-400"></i> Sin Catálogo Precargado Inteligente</li>
+                        <li class="flex items-center gap-2 text-slate-400"><i data-lucide="x" class="w-4 h-4 text-rose-400"></i> Sin Módulo de Caja y Finanzas</li>
+                        <li class="flex items-center gap-2 text-slate-400"><i data-lucide="x" class="w-4 h-4 text-rose-400"></i> Sin Agenda de Citas por WhatsApp</li>
+                    </ul>
+                </div>
+                <button onclick="selectFreeVersion()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-3.5 rounded-2xl text-xs transition-all shadow-md">
+                    Ingresar a la Versión Gratuita
+                </button>
+            </div>
+
+            <div class="bg-gradient-to-b from-white to-pink-50/50 rounded-3xl p-8 border-2 border-brand-500 shadow-xl flex flex-col justify-between space-y-6 relative">
+                <div class="absolute -top-3.5 right-6 px-3 py-1 bg-gradient-to-r from-brand-600 to-rose-500 text-white rounded-full text-[10px] font-black uppercase tracking-wider shadow-md">
+                    Recomendado VIP
+                </div>
+                <div class="space-y-4">
+                    <div class="inline-block px-3 py-1 bg-brand-100 text-brand-700 rounded-full text-xs font-bold">
+                        Pase de Acceso Completo
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800">Versión VIP</h3>
+                    <p class="text-xs text-slate-500">Toda la potencia automatizada para gestionar tu estudio sin pérdidas de tiempo.</p>
+                    <div class="text-3xl font-black text-brand-600">
+                        <span class="currency-symbol">$</span>10.00 <span class="text-xs text-slate-400 font-normal">/ Pago único vitalicio</span>
+                    </div>
+                    <ul class="space-y-2.5 text-xs text-slate-700 pt-4 border-t border-pink-100">
+                        <li class="flex items-center gap-2 font-semibold"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-500"></i> Calculadora con 7 Sistemas Preconfigurados</li>
+                        <li class="flex items-center gap-2 font-semibold"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-500"></i> Inventario Inteligente (30 Insumos Precargados)</li>
+                        <li class="flex items-center gap-2 font-semibold"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-500"></i> Control Completo de Caja y Finanzas</li>
+                        <li class="flex items-center gap-2 font-semibold"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-500"></i> Agenda y Recordatorios Directos por WhatsApp</li>
+                        <li class="flex items-center gap-2 font-semibold"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-500"></i> Soporte VIP y Alertas de Stock Bajo</li>
+                    </ul>
+                </div>
+                <button onclick="openVipPaymentModal()" class="w-full bg-gradient-to-r from-brand-600 to-rose-500 hover:from-brand-700 hover:to-rose-600 text-white font-bold py-3.5 rounded-2xl text-xs transition-all shadow-lg shadow-pink-200">
+                    💎 Activar Versión VIP ($10 USD)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VISTA 2: APLICACIÓN COMPLETA -->
+    <div id="appView" class="hidden flex-1 flex flex-col md:flex-row">
+        <aside class="w-full md:w-64 bg-white border-r border-pink-100 flex-shrink-0 p-4 space-y-4">
+            <div id="tierBadge" class="px-3 py-1 text-xs font-bold rounded-full text-center border">
+                --
+            </div>
+            <nav class="space-y-1.5">
+                <button onclick="switchTab('pricing')" id="nav-pricing" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all text-brand-700 bg-brand-50">
+                    <i data-lucide="calculator" class="w-4 h-4"></i> Calculadora
+                </button>
+                <button onclick="switchTab('finances')" id="nav-finances" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:bg-pink-50">
+                    <i data-lucide="wallet" class="w-4 h-4"></i> Caja y Finanzas (VIP)
+                </button>
+                <button onclick="switchTab('agenda')" id="nav-agenda" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:bg-pink-50">
+                    <i data-lucide="calendar" class="w-4 h-4"></i> Agenda y Citas (VIP)
+                </button>
+                <button onclick="switchTab('inventory')" id="nav-inventory" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-600 hover:bg-pink-50">
+                    <i data-lucide="package" class="w-4 h-4"></i> Inventario de Insumos
+                </button>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-4 md:p-8 max-w-6xl mx-auto w-full space-y-6">
+            <header class="flex justify-between items-center bg-white p-4 rounded-2xl border border-pink-100">
+                <h2 id="pageTitle" class="font-bold text-slate-800 text-base">Calculadora de Costos</h2>
+                <div id="stockAlertBadge" class="hidden text-xs bg-amber-50 text-amber-700 font-bold px-3 py-1 rounded-full border border-amber-200">
+                    ⚠️ Stock Bajo Activo
+                </div>
+            </header>
+
+            <!-- TAB 1: CALCULADORA -->
+            <section id="tab-pricing" class="tab-content space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-7 bg-white rounded-2xl p-5 border border-pink-100 space-y-4 shadow-sm">
+                        <div id="presetSystemContainer" class="hidden bg-gradient-to-r from-pink-50 to-purple-50 p-3.5 rounded-2xl border border-pink-100 space-y-2">
+                            <label class="block text-xs font-bold text-brand-800 flex items-center gap-1.5">
+                                <i data-lucide="wand2" class="w-4 h-4 text-brand-600"></i> Sistema Preconfigurado VIP
+                            </label>
+                            <select id="presetSystemSelect" onchange="loadPresetSystemVIP(this.value)" class="w-full bg-white border border-pink-200 rounded-xl text-xs p-2.5 font-semibold text-slate-700 focus:ring-2 focus:ring-brand-400">
+                                <option value="">-- Seleccionar Sistema --</option>
+                                <option value="nivelacion">✨ Nivelación con Base Rubber</option>
+                                <option value="polygel">💅 Extensión en Polygel</option>
+                                <option value="acrilico">💎 Uñas Acrílicas Esculturales</option>
+                                <option value="softgel">🌸 Sistema Soft Gel Press-On</option>
+                                <option value="kapping">🛡️ Kapping Gel Protector</option>
+                                <option value="semipermanente">🎨 Manicura Semipermanente</option>
+                                <option value="dual">⚡ Sistema Dual (Dual Forms)</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex-1">
+                                <label class="block text-xs font-medium text-slate-600 mb-1">Nombre del Servicio</label>
+                                <input type="text" id="serviceName" value="Servicio de Uñas" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none">
+                            </div>
+                            <div class="pt-5">
+                                <button onclick="addCustomService()" class="bg-brand-50 hover:bg-brand-100 text-brand-700 px-3 py-2 rounded-xl text-xs font-bold border border-pink-200 flex items-center gap-1">
+                                    <i data-lucide="plus" class="w-3.5 h-3.5"></i> Crear Servicio
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1">% Margen de Ganancia Deseado</label>
+                            <input type="number" id="profitMargin" value="50" oninput="updateServiceCalculation()" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none">
+                        </div>
+
+                        <div class="border-t border-slate-100 pt-4 space-y-2">
+                            <label class="block text-xs font-bold text-slate-700">Añadir Insumo al Servicio:</label>
+                            <div class="flex gap-2">
+                                <select id="supplySelect" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl text-xs p-2.5 outline-none"></select>
+                                <button onclick="addSupplyToService()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm">
+                                    Añadir
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs text-slate-600">
+                                <thead class="bg-slate-50 text-slate-400 font-bold uppercase">
+                                    <tr>
+                                        <th class="p-2.5">Insumo</th>
+                                        <th class="p-2.5 text-right">Costo / Uso</th>
+                                        <th class="p-2.5 text-center">✕</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="selectedSuppliesTable" class="divide-y divide-slate-100"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5">
+                        <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-6 shadow-xl space-y-6">
+                            <h3 class="font-bold text-pink-300 text-sm border-b border-slate-700 pb-3 flex items-center gap-2">
+                                <i data-lucide="receipt" class="w-4 h-4"></i> Costo Directo por Insumos
+                            </h3>
+                            <div class="space-y-3 text-xs">
+                                <div class="flex justify-between text-slate-300">
+                                    <span>Costo Total Insumos:</span>
+                                    <span class="font-bold"><span class="currency-symbol">$</span><span id="summarySupplies">0.00</span></span>
+                                </div>
+                                <div class="flex justify-between text-rose-300 font-bold pt-2 border-t border-slate-700">
+                                    <span>COSTO DE INVERSIÓN:</span>
+                                    <span><span class="currency-symbol">$</span><span id="summaryTotalCost">0.00</span></span>
+                                </div>
+                                <div class="flex justify-between text-emerald-400 font-semibold">
+                                    <span>Ganancia Neta (<span id="summaryMargin">50</span>%):</span>
+                                    <span>+<span class="currency-symbol">$</span><span id="summaryProfit">0.00</span></span>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-700">
+                                <span class="block text-xs text-slate-400 font-medium mb-1">PRECIO SUGERIDO AL CLIENTE</span>
+                                <div class="text-3xl font-black text-pink-400">
+                                    <span class="currency-symbol">$</span><span id="summaryFinalPrice">0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: CAJA Y FINANZAS -->
+            <section id="tab-finances" class="tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-white p-5 rounded-2xl border border-pink-100">
+                        <span class="text-xs text-slate-500 font-bold">Ingresos Totales</span>
+                        <div class="text-xl font-bold text-emerald-600"><span class="currency-symbol">$</span><span id="totalIncome">0.00</span></div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-pink-100">
+                        <span class="text-xs text-slate-500 font-bold">Gastos Totales</span>
+                        <div class="text-xl font-bold text-rose-600"><span class="currency-symbol">$</span><span id="totalExpenses">0.00</span></div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-pink-100">
+                        <span class="text-xs text-slate-500 font-bold">Balance de Caja</span>
+                        <div class="text-xl font-bold text-brand-600"><span class="currency-symbol">$</span><span id="netBalance">0.00</span></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 bg-white p-5 rounded-2xl border border-pink-100 space-y-3">
+                        <h3 class="font-bold text-xs text-slate-800">Registrar Movimiento de Caja</h3>
+                        <select id="transType" class="w-full bg-slate-50 border border-slate-200 rounded-xl text-xs p-2.5">
+                            <option value="income">🟢 Ingreso (Servicio / Cita)</option>
+                            <option value="expense">🔴 Gasto (Compra Insumos)</option>
+                        </select>
+                        <input type="text" id="transDesc" placeholder="Descripción" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                        <div class="relative">
+                            <span class="currency-symbol absolute left-3 top-2 text-xs text-slate-400 font-semibold">$</span>
+                            <input type="number" id="transAmount" placeholder="Monto" class="w-full pl-8 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                        </div>
+                        <select id="transCategory" class="w-full bg-slate-50 border border-slate-200 rounded-xl text-xs p-2.5">
+                            <option value="Servicio">Servicio</option>
+                            <option value="Insumos">Insumos</option>
+                            <option value="Otros">Otros</option>
+                        </select>
+                        <button onclick="addTransaction()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl text-xs">
+                            Guardar Movimiento
+                        </button>
+                    </div>
+
+                    <div class="lg:col-span-7 bg-white p-5 rounded-2xl border border-pink-100 space-y-3">
+                        <h3 class="font-bold text-xs text-slate-800">Historial de Caja VIP</h3>
+                        <div class="overflow-x-auto max-h-[300px] overflow-y-auto">
+                            <table class="w-full text-left text-xs text-slate-600">
+                                <thead class="bg-slate-50 font-bold text-slate-400">
+                                    <tr>
+                                        <th class="p-2">Fecha</th>
+                                        <th class="p-2">Concepto</th>
+                                        <th class="p-2 text-right">Monto</th>
+                                        <th class="p-2 text-center">✕</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transactionsTable" class="divide-y divide-slate-100"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: AGENDA -->
+            <section id="tab-agenda" class="tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 bg-white p-5 rounded-2xl border border-pink-100 space-y-3">
+                        <h3 class="font-bold text-xs text-slate-800">Agendar Nueva Cita</h3>
+                        <input type="text" id="apptClient" placeholder="Nombre Cliente" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                        <input type="text" id="apptPhone" placeholder="WhatsApp (Ej: +58414...)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                        <input type="text" id="apptService" placeholder="Servicio Acordado" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                        <div class="grid grid-cols-2 gap-2">
+                            <input type="text" id="apptDate" placeholder="Fecha (Ej: Mañana)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                            <input type="text" id="apptTime" placeholder="Hora (Ej: 10:00 AM)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                        </div>
+                        <div class="relative">
+                            <span class="currency-symbol absolute left-3 top-2 text-xs text-slate-400 font-semibold">$</span>
+                            <input type="number" id="apptPrice" placeholder="Precio Acordado" class="w-full pl-8 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                        </div>
+                        <button onclick="addAppointment()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl text-xs">
+                            Guardar en Agenda
+                        </button>
+                    </div>
+
+                    <div class="lg:col-span-7 bg-white p-5 rounded-2xl border border-pink-100 space-y-3">
+                        <h3 class="font-bold text-xs text-slate-800">Próximas Citas VIP</h3>
+                        <div id="appointmentsList" class="space-y-3 max-h-[400px] overflow-y-auto"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: INVENTARIO -->
+            <section id="tab-inventory" class="tab-content hidden space-y-6">
+                <div class="bg-white p-4 rounded-2xl border border-pink-100 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-xs">🔔</div>
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-800">Alertas de Stock Bajo</h4>
+                            <p class="text-[11px] text-slate-400">Notificar insumos con 3 unidades o menos</p>
+                        </div>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="stockAlertToggle" checked onchange="toggleStockAlert(this.checked)" class="sr-only peer">
+                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
+                    </label>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-4 bg-white p-5 rounded-2xl border border-pink-100 space-y-3">
+                        <h3 class="font-bold text-xs text-slate-800">Añadir Nuevo Insumo</h3>
+                        <input type="text" id="suppName" placeholder="Nombre Insumo" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                        <div class="relative">
+                            <span class="currency-symbol absolute left-3 top-2 text-xs text-slate-400 font-semibold">$</span>
+                            <input type="number" id="suppCost" placeholder="Costo Compra" class="w-full pl-8 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                        </div>
+                        <input type="number" id="suppUses" placeholder="Rendimiento (Usos)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                        <input type="number" id="suppStock" placeholder="Stock Actual" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+                        <button onclick="addSupply()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl text-xs">
+                            Guardar Insumo
+                        </button>
+                    </div>
+
+                    <div class="lg:col-span-8 bg-white p-5 rounded-2xl border border-pink-100 space-y-3">
+                        <h3 class="font-bold text-xs text-slate-800">Inventario Registrado</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs text-slate-600">
+                                <thead class="bg-slate-50 text-slate-400 font-bold uppercase">
+                                    <tr>
+                                        <th class="p-2.5">Insumo</th>
+                                        <th class="p-2.5">Costo</th>
+                                        <th class="p-2.5">Costo/Uso</th>
+                                        <th class="p-2.5 text-center">Stock</th>
+                                        <th class="p-2.5 text-center">Estado</th>
+                                        <th class="p-2.5 text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventoryTable" class="divide-y divide-slate-100"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODALES -->
+    <div id="userRegisterModal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 border border-pink-100 shadow-2xl">
+            <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">💅 Registro de Manicurista</h3>
+            <p class="text-xs text-slate-500">Por favor completa tus datos para guardar tus preferencias en el sistema:</p>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Nombre Completo</label>
+                    <input type="text" id="regName" placeholder="Ej. Ana María Pérez" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Correo Electrónico</label>
+                    <input type="email" id="regEmail" placeholder="ana@ejemplo.com" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Teléfono WhatsApp</label>
+                    <input type="text" id="regPhone" placeholder="+584120000000" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-400">
+                </div>
+            </div>
+            <button onclick="submitUserRegistration()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl text-xs shadow-md">
+                Continuar al Sistema
+            </button>
+        </div>
+    </div>
+
+    <div id="vipPaymentModal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-5 border border-pink-100 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <h3 class="text-base font-bold text-slate-800">💎 Métodos de Pago VIP ($10 USD)</h3>
+                <button onclick="closeVipPaymentModal()" class="text-slate-400 hover:text-slate-600 font-bold">✕</button>
+            </div>
+            <p class="text-xs text-slate-500">Realiza tu pago único de <strong>$10 USD</strong> utilizando cualquiera de los siguientes métodos oficiales:</p>
+            <div class="space-y-3">
+                <div class="bg-amber-50 border border-amber-200 p-3.5 rounded-2xl space-y-1">
+                    <div class="font-extrabold text-amber-800 text-xs">🟡 Binance Pay</div>
+                    <div class="text-xs text-amber-900 font-mono">ID Binance: <strong>1240005221</strong></div>
+                </div>
+                <div class="bg-blue-50 border border-blue-200 p-3.5 rounded-2xl space-y-1">
+                    <div class="font-extrabold text-blue-800 text-xs">🔵 PayPal</div>
+                    <div class="text-xs text-blue-900 font-mono">Correo: <strong>mariangieortega2@gmail.com</strong></div>
+                </div>
+            </div>
+            <button onclick="sendWhatsAppProof()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-xs shadow-md flex items-center justify-center gap-2">
+                <span>💬 Enviar Comprobante por WhatsApp</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="vipPendingModal" class="fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 border border-pink-100 shadow-2xl text-center">
+            <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto text-2xl font-bold">⏳</div>
+            <h3 class="text-base font-bold text-slate-800">Verificación en Proceso</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                ¡Gracias por enviar tu comprobante! Te responderemos por WhatsApp confirmando tu pago y te entregaremos tu <strong>Clave de Acceso VIP</strong>.
+            </p>
+            <div class="bg-pink-50 p-4 rounded-2xl border border-pink-100 text-left space-y-2">
+                <label class="block text-xs font-bold text-slate-700">Ingresa tu Clave de Acceso VIP:</label>
+                <input type="text" id="vipAccessKeyInput" placeholder="Ingresa tu clave de acceso" class="w-full px-3 py-2 bg-white border border-pink-200 rounded-xl text-xs font-mono outline-none focus:ring-2 focus:ring-brand-400">
+                <p id="vipKeyErrorMessage" class="text-[11px] text-rose-600 font-bold hidden">⚠️ Clave incorrecta. Verifica e intenta de nuevo.</p>
+                <button onclick="activateVipWithKey()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2 rounded-xl text-xs mt-1">
+                    Activar Pase VIP
+                </button>
+            </div>
+            <button onclick="closeVipPendingModal()" class="text-xs text-slate-400 hover:text-slate-600 underline font-medium">
+                Regresar a la versión gratuita por ahora
+            </button>
+        </div>
+    </div>
+
+    <!-- SCRIPT PRINCIPAL -->
+    <script>
+        let presetSystems = {
+            nivelacion: { name: 'Nivelación con Base Rubber', supplies: [1, 2, 5, 8, 6, 18, 19, 20, 21, 22, 26] },
+            polygel: { name: 'Extensión en Polygel', supplies: [1, 2, 4, 10, 11, 17, 8, 6, 18, 19, 20, 21, 25, 26] },
+            acrilico: { name: 'Uñas Acrílicas Esculturales', supplies: [1, 3, 12, 13, 17, 8, 6, 18, 19, 20, 21, 24, 26] },
+            softgel: { name: 'Sistema Soft Gel Press-On', supplies: [1, 2, 14, 15, 8, 6, 18, 19, 20, 21, 22, 26] },
+            kapping: { name: 'Kapping Gel Protector', supplies: [1, 2, 4, 9, 8, 6, 18, 19, 20, 21, 22, 26] },
+            semipermanente: { name: 'Manicura Semipermanente', supplies: [1, 2, 4, 8, 6, 18, 19, 20, 21, 22, 26] },
+            dual: { name: 'Sistema Dual (Dual Forms)', supplies: [1, 2, 4, 10, 11, 16, 8, 6, 18, 19, 20, 21, 25, 26] }
+        };
+
+        const defaultSuppliesVIP = [
+            { id: 1, name: 'Deshidratador / Nail Prep', cost: 6.00, uses: 50, stock: 5 },
+            { id: 2, name: 'Primer Sin Ácido (Bonder)', cost: 7.00, uses: 50, stock: 5 },
+            { id: 3, name: 'Primer Con Ácido', cost: 7.50, uses: 50, stock: 4 },
+            { id: 4, name: 'Base Coat Standard UV/LED', cost: 8.00, uses: 40, stock: 4 },
+            { id: 5, name: 'Base Rubber (Nivelación)', cost: 12.00, uses: 30, stock: 4 },
+            { id: 6, name: 'Top Coat Brillo (No Wipe)', cost: 9.00, uses: 40, stock: 4 },
+            { id: 7, name: 'Top Coat Matte Velour', cost: 9.50, uses: 40, stock: 3 },
+            { id: 8, name: 'Esmalte Semipermanente Color', cost: 6.00, uses: 25, stock: 10 },
+            { id: 9, name: 'Gel de Construcción (Kapping)', cost: 14.00, uses: 25, stock: 4 },
+            { id: 10, name: 'Polygel Tubo 30g', cost: 15.00, uses: 20, stock: 3 },
+            { id: 11, name: 'Slip Solution / Alcohol 70%', cost: 5.00, uses: 40, stock: 4 },
+            { id: 12, name: 'Polvo Polímero / Acrílico', cost: 14.00, uses: 30, stock: 4 },
+            { id: 13, name: 'Líquido Monómero (Acrílico)', cost: 16.00, uses: 30, stock: 3 },
+            { id: 14, name: 'Tips Soft Gel (Caja 240u)', cost: 12.00, uses: 24, stock: 5 },
+            { id: 15, name: 'Gel UV Solid / Pegamento Soft Gel', cost: 9.00, uses: 30, stock: 4 },
+            { id: 16, name: 'Moldes Dual Forms (Reutilizables)', cost: 8.00, uses: 50, stock: 6 },
+            { id: 17, name: 'Moldes de Papel (Esculturales)', cost: 10.00, uses: 100, stock: 8 },
+            { id: 18, name: 'Lima 100/180 Grano Medio', cost: 1.50, uses: 5, stock: 10 },
+            { id: 19, name: 'Lima Spongy / Buffer Suave', cost: 1.50, uses: 5, stock: 10 },
+            { id: 20, name: 'Wipes / Gasas sin Pelusa', cost: 4.00, uses: 50, stock: 6 },
+            { id: 21, name: 'Aceite de Cutícula Nutritivo', cost: 5.00, uses: 60, stock: 4 },
+            { id: 22, name: 'Fresa Diamante Flama (Cutícula)', cost: 4.00, uses: 30, stock: 4 },
+            { id: 23, name: 'Fresa Carburo Cono (Retiro)', cost: 8.00, uses: 50, stock: 3 },
+            { id: 24, name: 'Pincel Kolinsky 100% Acrílico', cost: 18.00, uses: 100, stock: 2 },
+            { id: 25, name: 'Pincel Polygel Dual con Espátula', cost: 8.00, uses: 80, stock: 2 },
+            { id: 26, name: 'Guantes Nitrilo Desechables (Par)', cost: 0.50, uses: 1, stock: 50 },
+            { id: 27, name: 'Mascarilla Protectora 3 Capas', cost: 0.30, uses: 1, stock: 30 },
+            { id: 28, name: 'Removedor / Acetona Pura', cost: 7.00, uses: 25, stock: 4 },
+            { id: 29, name: 'Sanitizante / Algicida Spray 250ml', cost: 6.50, uses: 60, stock: 5 },
+            { id: 30, name: 'Removedor Cutícula en Gel', cost: 5.50, uses: 45, stock: 4 }
+        ];
+
+        const defaultTransactionsVIP = [
+            { id: 101, date: 'Hoy', type: 'income', desc: 'Servicio Soft Gel Press-On - Camila', amount: 35.00, category: 'Servicio' },
+            { id: 102, date: 'Hoy', type: 'income', desc: 'Nivelación Base Rubber - Andrea', amount: 25.00, category: 'Servicio' },
+            { id: 103, date: 'Ayer', type: 'expense', desc: 'Compra de Base Rubber y Limas', amount: 18.50, category: 'Insumos' }
+        ];
+
+        const defaultAppointmentsVIP = [
+            { id: 201, client: 'Valeria Mendoza', phone: '+584141234567', service: 'Uñas Acrílicas', date: 'Mañana', time: '10:00 AM', price: 45.00 },
+            { id: 202, client: 'Mariana Ríos', phone: '+584129876543', service: 'Nivelación Rubber', date: 'Mañana', time: '02:30 PM', price: 25.00 }
+        ];
+
+        let state = { supplies: [], selectedServiceSupplies: [], transactions: [], appointments: [], stockAlertsEnabled: true };
+        let userTier = 'free';
+        let currentUserData = null;
+        let currentCurrency = 'USD';
+        let currencySymbol = '$';
+
+        const currencyMap = { 'USD': '$', 'COP': '$', 'MXN': '$', 'ARS': '$', 'CLP': '$', 'PEN': 'S/', 'VED': 'Bs.', 'GTQ': 'Q', 'DOP': 'RD$' };
+
+        window.onload = function() {
+            loadStoredUserSession();
+            initLucide();
+            renderSupplySelectOptions();
+            renderInventory();
+            updateStockAlertBadge();
+
+            if (!currentUserData) {
+                document.getElementById('userRegisterModal').classList.remove('hidden');
+            } else if (userTier === 'vip') {
+                setupTierUI();
+            }
+        };
+
+        function loadStoredUserSession() {
+            try {
+                const savedUser = localStorage.getItem('nailStudioUserData');
+                const savedTier = localStorage.getItem('nailStudioUserTier');
+                if (savedUser) currentUserData = JSON.parse(savedUser);
+                if (savedTier) {
+                    userTier = savedTier;
+                    if (userTier === 'vip') {
+                        state.supplies = [...defaultSuppliesVIP];
+                        state.transactions = [...defaultTransactionsVIP];
+                        state.appointments = [...defaultAppointmentsVIP];
+                    }
+                }
+            } catch(e) {}
+        }
+
+        function saveUserSession() {
+            try {
+                if (currentUserData) localStorage.setItem('nailStudioUserData', JSON.stringify(currentUserData));
+                localStorage.setItem('nailStudioUserTier', userTier);
+            } catch(e) {}
+        }
+
+        function initLucide() {
+            if (window.lucide && typeof lucide.createIcons === 'function') lucide.createIcons();
+        }
+
+        function updateGlobalCurrency(val) {
+            currentCurrency = val;
+            currencySymbol = currencyMap[val] || '$';
+            document.querySelectorAll('.currency-symbol').forEach(el => el.textContent = currencySymbol);
+            renderAll();
+        }
+
+        function selectFreeVersion() {
+            if (!currentUserData) {
+                document.getElementById('userRegisterModal').classList.remove('hidden');
+                return;
+            }
+            userTier = 'free';
+            state.supplies = [];
+            state.transactions = [];
+            state.appointments = [];
+            setupTierUI();
+        }
+
+        function submitUserRegistration() {
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+
+            if (!name || !email || !phone) {
+                alert('Por favor completa todos los campos del registro.');
+                return;
+            }
+
+            currentUserData = { name, email, phone };
+            saveUserSession();
+            document.getElementById('userRegisterModal').classList.add('hidden');
+        }
+
+        function openVipPaymentModal() {
+            if (!currentUserData) {
+                document.getElementById('userRegisterModal').classList.remove('hidden');
+                return;
+            }
+            if (userTier === 'vip') {
+                setupTierUI();
+                return;
+            }
+            document.getElementById('vipPaymentModal').classList.remove('hidden');
+        }
+
+        function closeVipPaymentModal() {
+            document.getElementById('vipPaymentModal').classList.add('hidden');
+        }
+
+        function sendWhatsAppProof() {
+            closeVipPaymentModal();
+            const message = `¡Hola! Acabo de realizar mi pago para la Versión VIP de NailStudioPro. Mis datos son: Nombre: ${currentUserData.name}, Correo: ${currentUserData.email}, WhatsApp: ${currentUserData.phone}. Adjunto mi comprobante de pago.`;
+            const url = `https://wa.me/584162303952?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+            document.getElementById('vipPendingModal').classList.remove('hidden');
+        }
+
+        function activateVipWithKey() {
+            const keyInput = document.getElementById('vipAccessKeyInput').value.trim();
+            const errorMsg = document.getElementById('vipKeyErrorMessage');
+            
+            if (keyInput.toUpperCase() === 'NAILSTUDIO2000') {
+                errorMsg.classList.add('hidden');
+                document.getElementById('vipPendingModal').classList.add('hidden');
+                document.getElementById('vipAccessKeyInput').value = '';
+                userTier = 'vip';
+                saveUserSession();
+                state.supplies = [...defaultSuppliesVIP];
+                state.transactions = [...defaultTransactionsVIP];
+                state.appointments = [...defaultAppointmentsVIP];
+                setupTierUI();
+            } else {
+                errorMsg.classList.remove('hidden');
+            }
+        }
+
+        function closeVipPendingModal() {
+            document.getElementById('vipKeyErrorMessage').classList.add('hidden');
+            document.getElementById('vipAccessKeyInput').value = '';
+            document.getElementById('vipPendingModal').classList.add('hidden');
+            if (userTier !== 'vip') {
+                userTier = 'free';
+                saveUserSession();
+                state.supplies = [];
+                state.transactions = [];
+                state.appointments = [];
+                setupTierUI();
+            }
+        }
+
+        function returnToLanding() {
+            document.getElementById('appView').classList.add('hidden');
+            document.getElementById('landingView').classList.remove('hidden');
+            document.getElementById('headerBackHomeBtn').classList.add('hidden');
+        }
+
+        function setupTierUI() {
+            document.getElementById('landingView').classList.add('hidden');
+            document.getElementById('appView').classList.remove('hidden');
+            document.getElementById('headerBackHomeBtn').classList.remove('hidden');
+
+            const isVip = userTier === 'vip';
+            const finNav = document.getElementById('nav-finances');
+            const ageNav = document.getElementById('nav-agenda');
+            const presetSelectContainer = document.getElementById('presetSystemContainer');
+
+            if (isVip) {
+                finNav.classList.remove('hidden');
+                ageNav.classList.remove('hidden');
+                if (presetSelectContainer) presetSelectContainer.classList.remove('hidden');
+                document.getElementById('tierBadge').textContent = 'Pase VIP Activado';
+                document.getElementById('tierBadge').className = 'px-3 py-1 bg-amber-100 text-amber-800 text-xs font-extrabold rounded-full border border-amber-300';
+            } else {
+                finNav.classList.add('hidden');
+                ageNav.classList.add('hidden');
+                if (presetSelectContainer) presetSelectContainer.classList.add('hidden');
+                document.getElementById('tierBadge').textContent = 'Versión Gratuita';
+                document.getElementById('tierBadge').className = 'px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full border border-slate-200';
+            }
+
+            switchTab('pricing');
+            renderAll();
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-50', 'text-brand-700');
+                btn.classList.add('text-slate-600');
+            });
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.add('bg-brand-50', 'text-brand-700');
+                activeNav.classList.remove('text-slate-600');
+            }
+
+            const titles = {
+                pricing: 'Calculadora de Costos por Servicio',
+                finances: 'Caja y Finanzas (VIP)',
+                agenda: 'Agenda y Citas (VIP)',
+                inventory: 'Inventario de Insumos'
+            };
+            document.getElementById('pageTitle').textContent = titles[tabId];
+            initLucide();
+        }
+
+        function toggleStockAlert(enabled) {
+            state.stockAlertsEnabled = enabled;
+            updateStockAlertBadge();
+        }
+
+        function updateStockAlertBadge() {
+            const badge = document.getElementById('stockAlertBadge');
+            if (!state.stockAlertsEnabled) {
+                if (badge) badge.classList.add('hidden');
+                return;
+            }
+            const lowStockItems = state.supplies.filter(s => s.stock <= 3);
+            if (lowStockItems.length > 0) {
+                if (badge) badge.classList.remove('hidden');
+            } else {
+                if (badge) badge.classList.add('hidden');
+            }
+        }
+
+        function renderSupplySelectOptions() {
+            const select = document.getElementById('supplySelect');
+            if (!select) return;
+            select.innerHTML = '<option value="">-- Seleccionar Insumo --</option>';
+            state.supplies.forEach(s => {
+                const costPerUse = (s.cost / (s.uses || 1)).toFixed(2);
+                select.innerHTML += `<option value="${s.id}">${s.name} (${currencySymbol}${costPerUse} / uso)</option>`;
+            });
+        }
+
+        function addSupplyToService() {
+            const select = document.getElementById('supplySelect');
+            const id = parseInt(select.value);
+            if (id && !state.selectedServiceSupplies.includes(id)) {
+                state.selectedServiceSupplies.push(id);
+                renderSelectedServiceSupplies();
+                updateServiceCalculation();
+            }
+        }
+
+        function removeSupplyFromService(id) {
+            state.selectedServiceSupplies = state.selectedServiceSupplies.filter(sId => sId !== id);
+            renderSelectedServiceSupplies();
+            updateServiceCalculation();
+        }
+
+        function renderSelectedServiceSupplies() {
+            const tbody = document.getElementById('selectedSuppliesTable');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            if (state.selectedServiceSupplies.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" class="p-3 text-center text-slate-400 italic">No has añadido insumos a este servicio.</td></tr>`;
+                return;
+            }
+            state.selectedServiceSupplies.forEach(id => {
+                const supply = state.supplies.find(s => s.id === id);
+                if (supply) {
+                    const costPerUse = supply.cost / supply.uses;
+                    tbody.innerHTML += `
+                        <tr>
+                            <td class="p-2.5 font-medium text-slate-700">${supply.name}</td>
+                            <td class="p-2.5 text-right font-semibold">${currencySymbol}${costPerUse.toFixed(2)}</td>
+                            <td class="p-2.5 text-center">
+                                <button onclick="removeSupplyFromService(${supply.id})" class="text-rose-500 font-bold">✕</button>
+                            </td>
+                        </tr>
+                    `;
+                }
+            });
+        }
+
+        function updateServiceCalculation() {
+            let suppliesCost = 0;
+            state.selectedServiceSupplies.forEach(id => {
+                const supply = state.supplies.find(s => s.id === id);
+                if (supply) {
+                    suppliesCost += (supply.cost / (supply.uses || 1));
+                }
+            });
+
+            const margin = parseFloat(document.getElementById('profitMargin').value) || 0;
+            const profit = suppliesCost * (margin / 100);
+            const finalPrice = suppliesCost + profit;
+
+            document.getElementById('summarySupplies').textContent = suppliesCost.toFixed(2);
+            document.getElementById('summaryTotalCost').textContent = suppliesCost.toFixed(2);
+            document.getElementById('summaryMargin').textContent = margin;
+            document.getElementById('summaryProfit').textContent = profit.toFixed(2);
+            document.getElementById('summaryFinalPrice').textContent = finalPrice.toFixed(2);
+        }
+
+        function addCustomService() {
+            const name = prompt("Ingresa el nombre del nuevo servicio:");
+            if (name && name.trim() !== "") {
+                document.getElementById('serviceName').value = name.trim();
+                alert(`Servicio "${name.trim()}" creado.`);
+            }
+        }
+
+        function loadPresetSystemVIP(key) {
+            if (!key || !presetSystems[key]) return;
+            const sys = presetSystems[key];
+            document.getElementById('serviceName').value = sys.name;
+            state.selectedServiceSupplies = [...sys.supplies];
+            renderSelectedServiceSupplies();
+            updateServiceCalculation();
+        }
+
+        function addSupply() {
+            const name = document.getElementById('suppName').value.trim();
+            const cost = parseFloat(document.getElementById('suppCost').value) || 0;
+            const uses = parseInt(document.getElementById('suppUses').value) || 1;
+            const stock = parseInt(document.getElementById('suppStock').value) || 0;
+
+            if (!name || cost <= 0) {
+                alert('Por favor ingresa un nombre y costo de compra válido.');
+                return;
+            }
+
+            const supply = { id: Date.now(), name, cost, uses, stock };
+            state.supplies.push(supply);
+
+            document.getElementById('suppName').value = '';
+            document.getElementById('suppCost').value = '';
+            document.getElementById('suppUses').value = '';
+            document.getElementById('suppStock').value = '';
+
+            renderSupplySelectOptions();
+            renderInventory();
+        }
+
+        function updateSupplyCost(id, newCost) {
+            const val = parseFloat(newCost);
+            if (!isNaN(val) && val >= 0) {
+                const supply = state.supplies.find(s => s.id === id);
+                if (supply) {
+                    supply.cost = val;
+                    renderSupplySelectOptions();
+                    renderSelectedServiceSupplies();
+                    updateServiceCalculation();
+                    renderInventory();
+                }
+            }
+        }
+
+        function updateStock(id, delta) {
+            const supply = state.supplies.find(s => s.id === id);
+            if (supply) {
+                supply.stock = Math.max(0, supply.stock + delta);
+                renderInventory();
+            }
+        }
+
+        function deleteSupply(id) {
+            state.supplies = state.supplies.filter(s => s.id !== id);
+            state.selectedServiceSupplies = state.selectedServiceSupplies.filter(sId => sId !== id);
+            renderSupplySelectOptions();
+            renderSelectedServiceSupplies();
+            renderInventory();
+        }
+
+        function renderInventory() {
+            const tbody = document.getElementById('inventoryTable');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            if (state.supplies.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400 italic">No hay insumos en inventario. ¡Agrega uno nuevo!</td></tr>`;
+            }
+
+            state.supplies.forEach(s => {
+                const costPerUse = (s.cost / (s.uses || 1)).toFixed(2);
+                const isLow = s.stock <= 3;
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="p-2.5 font-medium text-slate-700">${s.name}</td>
+                        <td class="p-2.5">
+                            <div class="relative w-24">
+                                <span class="currency-symbol absolute left-2 top-1.5 text-xs text-slate-400 font-semibold">${currencySymbol}</span>
+                                <input type="number" step="0.1" value="${s.cost.toFixed(2)}" onchange="updateSupplyCost(${s.id}, this.value)" class="w-full pl-6 pr-1 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg font-bold text-slate-800 outline-none focus:ring-1 focus:ring-brand-400">
+                            </div>
+                        </td>
+                        <td class="p-2.5 font-semibold text-brand-600">${currencySymbol}${costPerUse}</td>
+                        <td class="p-2.5 text-center font-bold">${s.stock}</td>
+                        <td class="p-2.5 text-center">
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${isLow ? 'bg-amber-100 text-amber-700 border border-amber-300' : 'bg-emerald-100 text-emerald-700'}">
+                                ${isLow ? '⚠️ STOCK BAJO' : 'OK'}
+                            </span>
+                        </td>
+                        <td class="p-2.5 text-center space-x-1">
+                            <button onclick="updateStock(${s.id}, 1)" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded font-bold text-slate-700">+</button>
+                            <button onclick="updateStock(${s.id}, -1)" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded font-bold text-slate-700">-</button>
+                            <button onclick="deleteSupply(${s.id})" class="px-2 py-0.5 text-rose-500 hover:text-rose-700 font-bold">✕</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            updateStockAlertBadge();
+        }
+
+        function addTransaction() {
+            const type = document.getElementById('transType').value;
+            const desc = document.getElementById('transDesc').value.trim();
+            const amount = parseFloat(document.getElementById('transAmount').value) || 0;
+            const category = document.getElementById('transCategory').value;
+
+            if (!desc || amount <= 0) {
+                alert('Por favor ingresa una descripción y monto válido.');
+                return;
+            }
+
+            const transaction = { id: Date.now(), date: 'Hoy', type, desc, amount, category };
+            state.transactions.unshift(transaction);
+            document.getElementById('transDesc').value = '';
+            document.getElementById('transAmount').value = '';
+
+            renderTransactions();
+        }
+
+        function deleteTransaction(id) {
+            state.transactions = state.transactions.filter(t => t.id !== id);
+            renderTransactions();
+        }
+
+        function renderTransactions() {
+            const tbody = document.getElementById('transactionsTable');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            let totalIncome = 0;
+            let totalExpenses = 0;
+
+            if (!state.transactions || state.transactions.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400 italic">No hay movimientos registrados.</td></tr>`;
+            } else {
+                state.transactions.forEach(t => {
+                    if (t.type === 'income') totalIncome += t.amount;
+                    else totalExpenses += t.amount;
+
+                    const isIncome = t.type === 'income';
+                    tbody.innerHTML += `
+                        <tr>
+                            <td class="p-2 text-slate-500">${t.date}</td>
+                            <td class="p-2 font-medium text-slate-700">${t.desc}</td>
+                            <td class="p-2 text-right font-bold ${isIncome ? 'text-emerald-600' : 'text-rose-600'}">
+                                ${isIncome ? '+' : '-'}${currencySymbol}${t.amount.toFixed(2)}
+                            </td>
+                            <td class="p-2 text-center">
+                                <button onclick="deleteTransaction(${t.id})" class="text-slate-400 hover:text-rose-600 font-bold">✕</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+
+            document.getElementById('totalIncome').textContent = totalIncome.toFixed(2);
+            document.getElementById('totalExpenses').textContent = totalExpenses.toFixed(2);
+            document.getElementById('netBalance').textContent = (totalIncome - totalExpenses).toFixed(2);
+        }
+
+        function addAppointment() {
+            const client = document.getElementById('apptClient').value.trim();
+            const phone = document.getElementById('apptPhone').value.trim();
+            const service = document.getElementById('apptService').value.trim();
+            const date = document.getElementById('apptDate').value.trim();
+            const time = document.getElementById('apptTime').value.trim();
+            const price = parseFloat(document.getElementById('apptPrice').value) || 0;
+
+            if (!client || !service || !date || !time) {
+                alert('Por favor completa los datos de la cita.');
+                return;
+            }
+
+            const appointment = { id: Date.now(), client, phone, service, date, time, price };
+            state.appointments.unshift(appointment);
+
+            document.getElementById('apptClient').value = '';
+            document.getElementById('apptPhone').value = '';
+            document.getElementById('apptService').value = '';
+            document.getElementById('apptDate').value = '';
+            document.getElementById('apptTime').value = '';
+            document.getElementById('apptPrice').value = '';
+
+            renderAppointments();
+        }
+
+        function deleteAppointment(id) {
+            state.appointments = state.appointments.filter(a => a.id !== id);
+            renderAppointments();
+        }
+
+        function sendWhatsAppReminder(id) {
+            const appt = state.appointments.find(a => a.id === id);
+            if (!appt) return;
+
+            const cleanPhone = appt.phone.replace(/[^0-9]/g, '');
+            const message = `¡Hola ${appt.client}! Te recordamos tu cita de ${appt.service} agendada para ${appt.date} a las ${appt.time}. ¡Te esperamos en NailStudioPro!`;
+            const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function renderAppointments() {
+            const list = document.getElementById('appointmentsList');
+            if (!list) return;
+            list.innerHTML = '';
+
+            if (!state.appointments || state.appointments.length === 0) {
+                list.innerHTML = `<p class="text-center text-slate-400 text-xs py-4 italic">No tienes citas agendadas.</p>`;
+                return;
+            }
+
+            state.appointments.forEach(a => {
+                list.innerHTML += `
+                    <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 flex justify-between items-center gap-3">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-slate-800 text-xs">${a.client}</span>
+                                <span class="text-[10px] bg-brand-100 text-brand-700 px-2 py-0.5 rounded-full font-medium">${a.service}</span>
+                            </div>
+                            <p class="text-[11px] text-slate-500">📅 ${a.date} - ⏰ ${a.time}</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="sendWhatsAppReminder(${a.id})" class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs px-2.5 py-1 rounded-xl font-medium">
+                                Recordar
+                            </button>
+                            <button onclick="deleteAppointment(${a.id})" class="text-slate-400 hover:text-rose-600 font-bold">
+                                ✕
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderAll() {
+            renderSupplySelectOptions();
+            renderSelectedServiceSupplies();
+            updateServiceCalculation();
+            renderTransactions();
+            renderAppointments();
+            renderInventory();
+            updateStockAlertBadge();
+        }
+    </script>
+</body>
+</html>
+```
+
+Puedes copiar este bloque entero y pegarlo directamente dentro de tu archivo `index.html` en GitHub para asegurar que el 100% de la web funcione perfectamente.
